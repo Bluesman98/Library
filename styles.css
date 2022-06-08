@@ -6,7 +6,7 @@ body{
 margin: 0;
 }
 .grid-container{
-  display: display;
+  display: grid;
   grid-template-rows: 1fr 6fr;
   height: 100vh;
 }
