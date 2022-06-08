@@ -6,56 +6,104 @@ body{
 margin: 0;
 }
 .grid-container{
-  display: grid;
+  display: display;
   grid-template-rows: 1fr 6fr;
   height: 100vh;
 }
 
 .header{
+  display: flex;
   grid-row: 1/2;
-  background-color: coral;
+  font-size:3rem;
+  align-items:center;
+  padding-left: 2rem;
+  color: white;
+  background-color: #475569;
+  padding-bottom: 2rem;
+  padding-top: 1.5rem;
 }
 
 .main{
   grid-row: 2/3;
   display: grid;
   grid-template-rows: 1fr 10fr;
+  background-color: #60A5FA;
 }
 
 .main-top{
-  background-color: chartreuse;
   grid-row: 1/2;
   display: flex;
   align-items: center;
-  justify-content: center;
+  box-shadow: inset;
+  border-bottom: 5px solid #2563EB;
 }
 
+.newBook{
+  display: flex;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  width: 3rem;
+  background-color: #60A5FA;
+}
+.newBook:hover{
+  color: white;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
 .main-bottom{
-  margin-top: 1em;
-  margin-left: 1em;
+  padding-top: 2rem;
+  padding-left: 2rem;
   grid-row: 2/3;
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+  grid-template-columns: repeat(auto-fit,minmax(200px,300px));
   grid-auto-rows: 1fr;
+  gap: 3rem;
+  font-family: 'Nuosu SIL',serif;
+  font-size: 1.5rem;
+  background-color: #475569;
 }
 
 .card{
-  display: grid;
+  display: flex;
+  flex-direction: column;
   background-color: white;
   border-radius: 10px;
   box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
   max-height: 20rem;
   max-width: 20rem;
   border-bottom: 0.5rem solid grey;
-  border-left: 0.8rem solid rgb(67, 143, 243);
+  border-left: 0.8rem solid #2563EB;
 }
 
 
 .card-content{
   display: flex;
+  flex:1;
   flex-direction: column;
-  padding: 1rem;
-  align-items: center;
+  padding: 0 1rem 1rem 1rem;
+  justify-content: start;
+  gap: 1rem;
+}
+.card-content>:nth-child(1){
+  font-weight: bold;
+  font-size: 2rem;
+  align-self: center;
+}
+.card-content>:nth-child(2){
+  font-style: italic;
+}
+
+.card-content>:nth-child(3){
+  margin-top: auto;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+.card-content>:last-child{
+  display: flex;
+  margin-bottom: 0;
+  justify-content: center;
+  gap:1rem;
 }
 
 .modal {
@@ -100,6 +148,15 @@ margin: 0;
 
 .remove{
   align-self: flex-end;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+.remove:hover{
+  color: red;
 }
 .modal-body {
   padding: 10px 15px;

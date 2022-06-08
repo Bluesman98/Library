@@ -84,13 +84,19 @@ function addBook(book) {
   remove.classList.add("remove");
   remove.innerHTML = "&times;"
   remove.addEventListener('click',selfRemove)
-  content.appendChild(remove);
+  card.appendChild(remove);
   
   card.classList.add("card");
+
   for (const item in book) {
     let x = document.createElement('div');
-    x.textContent = book[item];
-    if(item!='isRead')content.appendChild(x);
+    if(item == 'author') x.textContent =`by ${book[item]}`;
+    else if(item == 'pages') x.textContent =`Pages: ${book[item]}`;
+    else x.textContent = book[item];
+    
+    if(item!='isRead'){
+      content.appendChild(x);
+    }
   }
   content.appendChild(createReadSlider(book));
   card.appendChild(content);
@@ -115,6 +121,8 @@ function createReadSlider(book){
   label.classList.add("switch");
   input.id = "isRead";
   input.type = "checkbox";
+
+  //Read/Not Read Slider Function...
   input.addEventListener('click', e =>{
     let self = e.target
     let x = self.parentElement;
@@ -129,6 +137,7 @@ function createReadSlider(book){
     }
     saveLocal();
   })
+  
   label.appendChild(input);
   span.classList.add("slider", "round");
   label.appendChild(span);
