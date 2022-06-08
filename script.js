@@ -35,14 +35,15 @@ function closeModal(modal) {
   modal.classList.remove('active')
   overlay.classList.remove('active')
 }
-//..............//
+
+
 function Book() {;
   this.title = "Unknown";
   this.author = "Unknown";
   this.pages = 0;
   this.isRead = false;
 }
-//Add button function...//
+
 const titleInput = document.querySelector("#title");
 const authorInput = document.querySelector("#author");
 const pagesInput = document.querySelector("#pages");
@@ -54,7 +55,6 @@ let idCount = 0;
 restore();
 saveLocal();
 
-
 add.addEventListener('click',()=>{
   if (formValidation() == true ){
   let book = new Book;
@@ -64,13 +64,11 @@ add.addEventListener('click',()=>{
   }
 })
 
-
 function readBook(book){
   book.title = titleInput.value;
   book.author = authorInput.value;
   book.pages = pagesInput.value;
   book.isRead = readInput.checked;
-
 }
 function addBook(book) {
   let card = document.createElement('div');
@@ -151,13 +149,6 @@ function formValidation(){
   if(pagesInput.value == "") return false;
   return true
 }
-function restore() {
-var retrievedObject = localStorage.getItem(`library`);
-retrievedObject = JSON.parse(retrievedObject);
-for(item in retrievedObject){ 
-    addBook(retrievedObject[item]);    
-}
-}
 
 function selfRemove(){
   let x = (this.parentElement).parentElement
@@ -171,4 +162,10 @@ function selfRemove(){
   localStorage.setItem(`library`, JSON.stringify(library));
 }
 
-
+function restore() {
+  var retrievedObject = localStorage.getItem(`library`);
+  retrievedObject = JSON.parse(retrievedObject);
+  for(item in retrievedObject){ 
+      addBook(retrievedObject[item]);    
+  }
+  }
