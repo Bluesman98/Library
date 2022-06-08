@@ -50,8 +50,10 @@ const readInput = document.querySelector('#read');
 const grid = document.querySelector(".main-bottom");
 const add = document.querySelector('.add');
 const library =[];
+let idCount = 0;
 restore();
 saveLocal();
+
 
 add.addEventListener('click',()=>{
   if (formValidation() == true ){
@@ -71,13 +73,24 @@ function readBook(book){
 
 }
 function addBook(book) {
-  let content = document.createElement('div');
   let card = document.createElement('div');
+  card.id = `${idCount}`
+  //console.log(card.id)
+  idCount++
+  let content = document.createElement('div');
+  let remove =  document.createElement('button');
+  content.classList.add("card-content");
+  
+  remove.classList.add("remove");
+  remove.innerHTML = "&times;"
+  remove.addEventListener('click',selfRemove)
+  content.appendChild(remove);
+  
   card.classList.add("card");
   for (const item in book) {
     let x = document.createElement('div');
     x.textContent = book[item];
-    content.appendChild(x);
+    if(item!='isRead')content.appendChild(x);
   }
   content.appendChild(createReadSlider(book));
   card.appendChild(content);
@@ -87,21 +100,40 @@ function addBook(book) {
 
 function createReadSlider(book){
   let container = document.createElement('div');
-  let read = document.createElement('div');
-  if(book.isRead == true) read.textContent = "Read";
-  else read.textContent = "Not Read";
-  container.appendChild(read);
-
   let label = document.createElement('label');
-  label.classList.add("switch");
+  let read = document.createElement('div');
   let input = document.createElement('input');
+  let span = document.createElement('span');
+
+  if(book.isRead == true) {
+    read.textContent = "Read";
+    input.checked = true
+  }
+  else read.textContent = "Not Read";
+
+  container.appendChild(read);
+  label.classList.add("switch");
   input.id = "isRead";
   input.type = "checkbox";
+  input.addEventListener('click', e =>{
+    let self = e.target
+    let x = self.parentElement;
+    let y = x.previousElementSibling;
+    if(self.checked == true) {
+      y.textContent = "Read";
+      book.isRead = true;
+    }
+    else {
+      y.textContent = "Not Read";
+      book.isRead = false;
+    }
+    saveLocal();
+  })
   label.appendChild(input);
-  let span = document.createElement('span');
   span.classList.add("slider", "round");
   label.appendChild(span);
   container.appendChild(label);
+
   return container;
 }
 
@@ -114,23 +146,21 @@ function formValidation(){
 function restore() {
 var retrievedObject = localStorage.getItem(`library`);
 retrievedObject = JSON.parse(retrievedObject);
-console.log(retrievedObject);
 for(item in retrievedObject){ 
     addBook(retrievedObject[item]);    
 }
 }
 
+function selfRemove(){
+  let x = (this.parentElement).parentElement
+  console.log(x.id);
+  library.splice(x.id, 1);
+  x.remove();
+  saveLocal();
+  
+}
  function saveLocal() {
   localStorage.setItem(`library`, JSON.stringify(library));
 }
 
-//localStorage.clear();
-const isRead = document.querySelectorAll("#isRead");
-isRead.forEach(slider =>{
-  slider.addEventListener("click",()=>{
-    let x = slider.parentElement;
-    let y = x.previousElementSibling;
-    if(slider.checked == true) y.textContent = "Read"
-    else y.textContent = "Not Read"
-  })
-})
+
