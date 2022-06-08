@@ -75,7 +75,6 @@ function readBook(book){
 function addBook(book) {
   let card = document.createElement('div');
   card.id = `${idCount}`
-  //console.log(card.id)
   idCount++
   let content = document.createElement('div');
   let remove =  document.createElement('button');
